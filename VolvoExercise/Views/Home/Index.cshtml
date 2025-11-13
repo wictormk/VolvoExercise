@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Vehicles";
+    var successfulUpdateMessage = TempData["SuccessfulUpdateMessage"] as string;
+}
+@model List<Vehicle>
+
+<div class="text-center mt-3">
+    <h1 class="display-4">Saved Vehicles</h1>
+    <br />
+    @{
+        if (Model != null && Model.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Chassis Id
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Number of Passengers
+                        </th>
+                        <th>
+                            Color
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (var vehicle in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @vehicle.ChassisId.Series@vehicle.ChassisId.Number
+                                </td>
+                                <td>
+                                    @vehicle.Type
+                                </td>
+                                <td>
+                                    @vehicle.PassengerCapacity
+                                </td>
+                                <td>
+                                    @vehicle.Color
+                                </td>
+                                <td>
+                                    <form asp-controller="Vehicle" asp-action="EditVehicle" method="post">
+                                        <button type="submit" class="btn btn-sm btn-primary" name="vehicleId" value="@vehicle.Id">Edit</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No records to display yet.</p>
+        }
+        @if (!string.IsNullOrEmpty(successfulUpdateMessage))
+        {
+            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                @successfulUpdateMessage
+            </div>
+        }
+
+    }
+</div>
+
+<script>
+    setTimeout(function() {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+        }
+    }, 2000);
+</script>

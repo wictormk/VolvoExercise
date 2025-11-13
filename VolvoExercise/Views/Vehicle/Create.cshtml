@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Add a vehicle";
+    var successMessage = TempData["SuccessMessage"] as string;
+    var errorMessage = TempData["errorMessage"] as string;
+}
+@model VolvoExercise.Models.Vehicle;
+
+<div class="container">
+    <h2>Add vehicle</h2>
+    <form asp-action="AddVehicle">
+        <div>
+            <label>Chassis series:</label>
+            <input class="form-control" style="text-transform: uppercase" placeholder="ABC321XYZ" asp-for="ChassisId.Series" />
+
+            <label style="margin-top: 10px">Chassis number:</label>
+            <input class="form-control" type="number" min="0" placeholder="123321" asp-for="ChassisId.Number" required />
+
+            <label style="margin-top: 10px">Type:</label>
+            <select class="form-select" asp-for="Type">
+                <option value="Truck">Truck - 1 Passenger</option>
+                <option value="Car">Car - 4 Passengers</option>
+                <option value="Bus">Bus - 42 Passengers</option>
+            </select>
+
+            <label style="margin-top: 10px">Color:</label>
+            <input class="form-control" asp-for="Color" required />
+
+            <button style="margin-top: 10px" type="submit" class="btn btn-primary">Save</button>
+
+            @if (!string.IsNullOrEmpty(successMessage))
+            {
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    @successMessage
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                    @errorMessage
+                </div>
+            }
+
+        </div>
+    </form>
+</div>
+
+<script>
+    setTimeout(function() {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+        }
+    }, 2000);
+</script>

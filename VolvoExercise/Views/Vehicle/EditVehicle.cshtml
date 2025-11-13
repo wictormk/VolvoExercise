@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Edit Vehicle";
+}
+@model Vehicle
+
+<h2 class="mt-3">Edit vehicle</h2>
+<div class="mt-1" style="display:grid; grid-template-columns:200px 1fr; row-gap:8px; column-gap:10px;">
+    <div><strong>Chassis Id:</strong></div>
+    <div>@Model.ChassisId.Series@Model.ChassisId.Number</div>
+
+    <div><strong>Type:</strong></div>
+    <div>@Model.Type</div>
+
+    <div><strong>Number of Passengers:</strong></div>
+    <div>@Model.PassengerCapacity</div>
+
+    <div><strong>Current Color:</strong></div>
+    <div>@Model.Color</div>
+
+    <div><strong>New Color:</strong></div>
+    <div>
+        <form class="d-flex flex-wrap gap-1" method="post">
+            <input type="hidden" name="ChassisId.Series" value="@Model.ChassisId.Series" />
+            <input type="hidden" name="ChassisId.Number" value="@Model.ChassisId.Number" />
+            <input class="form-control form-control-sm" style="width: 200px" name="Color" required />
+            <button asp-controller="Vehicle" asp-action="SaveEditVehicle"
+                    class="btn btn-sm btn-primary d-flex align-items-center justify-content-center" 
+               type="submit">Save
+            </button>
+            <a asp-controller="Home" asp-action="Index" 
+               class="btn btn-sm btn-secondary d-flex align-items-center justify-content-center" 
+               type="button">Cancel
+            </a>
+        </form>
+    </div>
+</div>
